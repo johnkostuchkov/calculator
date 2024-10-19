@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <style>
+        #calculator {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #3f3f3f;
+        }
+        button {
+            width: 80px;
+            height: 80px;
+            font-size: 28px;
+            background-color: #FF4D00;
+            border-radius: 20px;
+            border: none;
+            color: #fff;
+        }
+        button:hover {
+            background-color: #FFB800;
+        }
+        input {
+            width: 390px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 80px;
+            font-size: 18px;
+            text-align: right;
+        }
+        .string {
+            width: 395px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 488px;
+        }
+        #display {
+            color: #fff;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="display" disabled />
+        <div class="buttons">
+            <div class="string">
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="setOperation('squared')">x²</button>
+                <button onclick="setOperation('sqrt')">√</button>
+                <button onclick="setOperation('cubed')">x³</button>
+            </div>
+            <div class="string">
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button onclick="setOperation('cbrt')">∛</button>
+            </div>
+            <div class="string">
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button onclick="setOperation('/')">/</button>
+            </div>
+            <div class="string">
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button onclick="setOperation('*')">*</button>
+            </div>
+            <div class="string">
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="calculateResult()">=</button>
+                <button onclick="setOperation('+')">+</button>
+                <button onclick="setOperation('-')">-</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let firstOperand = null;
+        let secondOperand = null;
+        let operation = null;
+
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            firstOperand = null;
+            secondOperand = null;
+            operation = null;
+            document.getElementById('display').value = '';
+        }
+
+        function setOperation(op) {
+            const display = document.getElementById('display');
+            firstOperand = parseFloat(display.value);
+            operation = op;
+            display.value = '';
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('display');
+            secondOperand = parseFloat(display.value);
+            let result = 0;
+
+            switch (operation) {
+                case '+':
+                    result = firstOperand + secondOperand;
+                    break;
+                case '-':
+                    result = firstOperand - secondOperand;
+                    break;
+                case '*':
+                    result = firstOperand * secondOperand;
+                    break;
+                case '/':
+                    result = secondOperand !== 0 ? firstOperand / secondOperand : 'Ошибка';
+                    break;
+                case 'sqrt':
+                    result = Math.sqrt(firstOperand);
+                    break;
+                case 'cbrt':
+                    result = Math.cbrt(firstOperand);
+                    break;
+                case 'squared':
+                    result = firstOperand * firstOperand; // возведение в квадрат
+                    break;
+                case 'cubed':
+                    result = firstOperand * firstOperand * firstOperand; // возведение в куб
+                    break;
+                default:
+                    break;
+            }
+
+            display.value = result;
+            firstOperand = result; // Сохраняем результат для дальнейших операций
+            operation = null; // Сброс операции
+        }
+    </script>
+</body>
+</html>
