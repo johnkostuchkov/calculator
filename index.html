@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -18,10 +17,10 @@
             width: 80px;
             height: 80px;
             font-size: 28px;
-            background-color: #FF4D00;
+            background-color: #fff;
             border-radius: 20px;
             border: none;
-            color: #fff;
+            color: #000;
         }
         button:hover {
             background-color: #FFB800;
@@ -65,7 +64,7 @@
                 <button onclick="appendToDisplay('7')">7</button>
                 <button onclick="appendToDisplay('8')">8</button>
                 <button onclick="appendToDisplay('9')">9</button>
-                <button onclick="setOperation('cbrt')">∛</button>
+                <button onclick="setOperation('+/-')">+/-</button>
             </div>
             <div class="string">
                 <button onclick="appendToDisplay('4')">4</button>
@@ -131,10 +130,10 @@
                     result = secondOperand !== 0 ? firstOperand / secondOperand : 'Ошибка';
                     break;
                 case 'sqrt':
-                    result = Math.sqrt(firstOperand);
+                    result = firstOperand > 0 ? Math.sqrt(firstOperand) : 'Ошибка';
                     break;
-                case 'cbrt':
-                    result = Math.cbrt(firstOperand);
+                case '+/-':
+                    result = firstOperand * -1;
                     break;
                 case 'squared':
                     result = firstOperand * firstOperand; // возведение в квадрат
